@@ -110,7 +110,7 @@ int has_won_big(int big_board[10][10]) {
 
 // Heuristic: checking how likely for a player to win in a small board
 // Assign 10 if a player has 2 play in a row, and 1 with 1 play in a row
-// player 0 is our agent, 1 is the opponent (negative score)
+// player is our agent, !player is the opponent (negative score)
 int evaluate_small(int small_board[10]) {
   int score = 0;
   for (int i = 0; i < 8; i++) {
@@ -122,9 +122,9 @@ int evaluate_small(int small_board[10]) {
 
     int count_1 = 0, count_2 = 0;
     for (int j = 0; j < 3; j++) {
-      if (position[j] == 0)
+      if (position[j] == player)
         count_1++;
-      else if (position[j] == 1)
+      else if (position[j] == !player)
         count_2++;
     }
 
@@ -268,7 +268,7 @@ int play(int curr_big_board[10][10], int prev_move) {
   }
 
   alphabeta(
-    0,
+    player,
     0,
     curr_big_board,
     MIN_EVAL,
